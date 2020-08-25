@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 # avoid caching for development purposes
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config['GEVENT_SUPPORT'] = True
 
 @app.after_request
 def add_header(r):
@@ -27,6 +28,8 @@ def add_header(r):
 Website('https://duckduckgo.com')
 Website('https://www.google.com/pagedoesntexist')
 Website('https://http.cat/')
+
+#
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
