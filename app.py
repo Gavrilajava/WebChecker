@@ -1,9 +1,9 @@
 from flask import Flask
 from flask import render_template
+from flask import request
 from website import Website
-import logging
 import re
-import sys
+
 
 app = Flask(__name__)
 
@@ -22,17 +22,23 @@ def add_header(r):
     r.headers['Cache-Control'] = 'public, max-age=0'
     return r
 
-w = Website('https://duckduckgo.com')
-w = Website('https://www.google.com/pagedoesntexist')
-w = Website('https://http.cat/')
+# Set up initial websites:
 
-@app.route("/")
+Website('https://duckduckgo.com')
+Website('https://www.google.com/pagedoesntexist')
+Website('https://http.cat/')
+
+@app.route("/", methods=['GET', 'POST'])
 def home():
-    app.logger.info("checking")
+    if request.method == 'POST':
+        Website(request.form['url'])
     Website.check_all()
     return render_template(
         "home.html",
         pages=Website.all,
         length=len(Website.all)
     )
+
+
+
 

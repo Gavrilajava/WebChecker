@@ -17,15 +17,16 @@
               {{pages[i].url}}
             </td>
             <td>
-              <span class=green></span>
-              {{pages[i].status}} OK
+              <span class="{{pages[i].color}}"></span>
+              {{pages[i].status}}
+              {{pages[i].message}}
             </td>
           </tr>
         {%endfor%} 
       </table>
-      <form>
+      <form action="" method="post">
         <label>Enter a URL to check:</label>
-        <input class = "textField" type = "text"/>
+        <input class = "textField" type = "text" name="url"/>
         <input id = "button" type = 'submit' value = "Check"/>
       </form>
     </body>
